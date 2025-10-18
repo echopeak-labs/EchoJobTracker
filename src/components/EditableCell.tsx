@@ -15,12 +15,12 @@ interface EditableCellProps {
 const progressOptions = ["Prospecting", "Applied", "Interviewing", "Offer", "Rejected", "Accepted"] as const;
 
 const progressColors: Record<typeof progressOptions[number], string> = {
-  Prospecting: 'bg-muted text-muted-foreground',
-  Applied: 'bg-primary/20 text-primary-foreground',
-  Interviewing: 'bg-warning/20 text-warning-foreground',
-  Offer: 'bg-success text-success-foreground',
-  Rejected: 'bg-destructive/20 text-destructive',
-  Accepted: 'bg-success text-success-foreground'
+  Prospecting: 'bg-muted text-muted-foreground border border-border',
+  Applied: 'bg-primary/15 text-primary border border-primary/30',
+  Interviewing: 'bg-warning/15 text-warning-foreground border border-warning/30',
+  Offer: 'bg-success/15 text-success border border-success/30',
+  Rejected: 'bg-destructive/15 text-destructive border border-destructive/30',
+  Accepted: 'bg-success/20 text-success border border-success/40'
 };
 
 export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps) {
