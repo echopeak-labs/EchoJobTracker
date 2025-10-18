@@ -4,29 +4,31 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { Slider } from '@/components/ui/slider';
 import { Job } from '@/hooks/useLocalStorage';
-import { Star } from 'lucide-react';
+import { Star, Plus } from 'lucide-react';
 
 interface NewJobDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   roles: string[];
   onSubmit: (job: Omit<Job, 'id' | 'createdAt'>) => void;
+  onAddRole: (role: string) => void;
 }
 
 const progressOptions = ["Prospecting", "Applied", "Interviewing", "Offer", "Rejected", "Accepted"] as const;
 
-export function NewJobDialog({ open, onOpenChange, roles, onSubmit }: NewJobDialogProps) {
+export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }: NewJobDialogProps) {
   const [formData, setFormData] = useState({
     companyName: '',
     link: '',
     desirability: 3,
-    salaryMin: '',
-    salaryMax: '',
+    salaryRange: [0, 500000],
     role: roles[0] || '',
     keywords: '',
     progress: 'Prospecting' as const
   });
+  const [newRole, setNewRole] = useState('');
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,8 +41,8 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit }: NewJobDial
       companyName: formData.companyName,
       link: formData.link,
       desirability: formData.desirability,
-      salaryMin: formData.salaryMin ? Number(formData.salaryMin) : null,
-      salaryMax: formData.salaryMax ? Number(formData.salaryMax) : null,
+      salaryMin: formData.salaryRange[0] === 0 ? null : formData.salaryRange[0],
+      salaryMax: formData.salaryRange[1] === 500000 ? null : formData.salaryRange[1],
       role: formData.role,
       keywords: formData.keywords.split(/[,\s]+/).filter(Boolean),
       progress: formData.progress
@@ -51,12 +53,12 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit }: NewJobDial
       companyName: '',
       link: '',
       desirability: 3,
-      salaryMin: '',
-      salaryMax: '',
+      salaryRange: [0, 500000],
       role: roles[0] || '',
       keywords: '',
       progress: 'Prospecting'
     });
+    setNewRole('');
     
     onOpenChange(false);
   };
@@ -67,13 +69,21 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit }: NewJobDial
       companyName: '',
       link: '',
       desirability: 3,
-      salaryMin: '',
-      salaryMax: '',
+      salaryRange: [0, 500000],
       role: roles[0] || '',
       keywords: '',
       progress: 'Prospecting'
     });
+    setNewRole('');
     onOpenChange(false);
+  };
+
+  const handleAddRole = () => {
+    if (newRole.trim() && !roles.includes(newRole.trim())) {
+      onAddRole(newRole.trim());
+      setFormData({ ...formData, role: newRole.trim() });
+      setNewRole('');
+    }
   };
 
   return (
@@ -141,30 +151,24 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit }: NewJobDial
             </div>
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="salaryMin" className="text-foreground">Salary Min</Label>
-              <Input
-                id="salaryMin"
-                type="number"
-                value={formData.salaryMin}
-                onChange={(e) => setFormData({ ...formData, salaryMin: e.target.value })}
-                placeholder="0"
-                className="bg-input border-border text-foreground"
-              />
+          <div className="space-y-3">
+            <Label className="text-foreground">Salary Range</Label>
+            <div className="flex justify-between mb-2">
+              <span className="text-sm font-medium text-foreground">
+                ${formData.salaryRange[0].toLocaleString()}
+              </span>
+              <span className="text-sm font-medium text-foreground">
+                ${formData.salaryRange[1].toLocaleString()}
+              </span>
             </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="salaryMax" className="text-foreground">Salary Max</Label>
-              <Input
-                id="salaryMax"
-                type="number"
-                value={formData.salaryMax}
-                onChange={(e) => setFormData({ ...formData, salaryMax: e.target.value })}
-                placeholder="0"
-                className="bg-input border-border text-foreground"
-              />
-            </div>
+            <Slider
+              min={0}
+              max={500000}
+              step={10}
+              value={formData.salaryRange}
+              onValueChange={(value) => setFormData({ ...formData, salaryRange: value as [number, number] })}
+              className="w-full"
+            />
           </div>
 
           <div className="space-y-2">
@@ -175,7 +179,7 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit }: NewJobDial
               disabled={roles.length === 0}
             >
               <SelectTrigger id="role" className="bg-input border-border text-foreground">
-                <SelectValue placeholder={roles.length === 0 ? "Add roles in sidebar first" : "Select role"} />
+                <SelectValue placeholder={roles.length === 0 ? "Add a role below" : "Select role"} />
               </SelectTrigger>
               <SelectContent className="bg-popover border-border">
                 {roles.map(role => (
@@ -185,6 +189,24 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit }: NewJobDial
                 ))}
               </SelectContent>
             </Select>
+            
+            <div className="flex gap-2 mt-2">
+              <Input
+                value={newRole}
+                onChange={(e) => setNewRole(e.target.value)}
+                onKeyDown={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddRole())}
+                placeholder="Add new role..."
+                className="bg-input border-border text-foreground"
+              />
+              <Button
+                type="button"
+                size="icon"
+                onClick={handleAddRole}
+                className="bg-primary hover:bg-primary/90 text-primary-foreground shrink-0"
+              >
+                <Plus className="h-4 w-4" />
+              </Button>
+            </div>
           </div>
 
           <div className="space-y-2">

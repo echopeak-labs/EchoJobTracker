@@ -97,6 +97,7 @@ const Index = () => {
         onOpenChange={setIsNewJobDialogOpen}
         roles={store.roles}
         onSubmit={handleCreateJob}
+        onAddRole={addRole}
       />
       
       <div className="flex flex-1 overflow-hidden">
