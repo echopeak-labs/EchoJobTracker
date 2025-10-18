@@ -6,8 +6,10 @@ interface HeaderProps {
 
 export function Header() {
   return (
-    <header className="h-16 border-b border-border bg-card px-6 flex items-center justify-between">
-      <h1 className="text-2xl font-bold text-foreground">Job Tracker</h1>
+    <header className="h-16 border-b-2 border-border bg-card/50 backdrop-blur-sm px-6 flex items-center justify-between neon-glow-purple">
+      <h1 className="text-2xl font-black text-foreground neon-text-cyan tracking-wider uppercase">
+        Job Tracker
+      </h1>
     </header>
   );
 }

@@ -29,12 +29,12 @@ export function JobRow({
   };
 
   return (
-    <tr className={`hover:bg-table-hover transition-colors ${isSelected ? 'bg-table-selected' : ''}`}>
+    <tr className={`hover:bg-table-hover transition-all border-l-2 border-transparent hover:border-l-accent ${isSelected ? 'bg-table-selected border-l-primary' : ''}`}>
       <td className="px-4 py-3">
         <Checkbox
           checked={isSelected}
           onCheckedChange={onToggleSelect}
-          className="border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+          className="border-2 border-accent data-[state=checked]:bg-primary data-[state=checked]:border-primary"
         />
       </td>
 
@@ -53,7 +53,7 @@ export function JobRow({
           variant="ghost"
           size="icon"
           onClick={() => onDelete(job.id)}
-          className="text-muted-foreground hover:text-destructive"
+          className="text-muted-foreground hover:text-destructive hover:bg-destructive/10 transition-all"
         >
           <Trash2 className="h-4 w-4" />
         </Button>

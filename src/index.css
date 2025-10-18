@@ -8,54 +8,60 @@ All colors MUST be HSL.
 
 @layer base {
   :root {
-    --background: 220 15% 9%;
-    --foreground: 210 20% 95%;
+    /* Retro 80s Neon Theme */
+    --background: 260 40% 8%;
+    --foreground: 180 100% 90%;
 
-    --card: 220 15% 12%;
-    --card-foreground: 210 20% 95%;
+    --card: 260 50% 12%;
+    --card-foreground: 180 100% 90%;
 
-    --popover: 220 15% 10%;
-    --popover-foreground: 210 20% 95%;
+    --popover: 260 60% 10%;
+    --popover-foreground: 180 100% 90%;
 
-    --primary: 217 91% 60%;
-    --primary-foreground: 210 20% 98%;
+    --primary: 320 100% 60%;
+    --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 16%;
-    --secondary-foreground: 210 20% 95%;
+    --secondary: 280 100% 65%;
+    --secondary-foreground: 0 0% 100%;
 
-    --muted: 220 15% 16%;
-    --muted-foreground: 215 15% 60%;
+    --muted: 260 30% 20%;
+    --muted-foreground: 280 60% 70%;
 
-    --accent: 217 91% 60%;
-    --accent-foreground: 210 20% 98%;
+    --accent: 180 100% 60%;
+    --accent-foreground: 260 40% 8%;
 
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 210 20% 98%;
+    --destructive: 0 100% 60%;
+    --destructive-foreground: 0 0% 100%;
 
-    --success: 142 76% 36%;
-    --success-foreground: 210 20% 98%;
+    --success: 142 100% 50%;
+    --success-foreground: 260 40% 8%;
 
-    --warning: 38 92% 50%;
-    --warning-foreground: 220 15% 9%;
+    --warning: 38 100% 60%;
+    --warning-foreground: 260 40% 8%;
 
-    --border: 220 15% 20%;
-    --input: 220 15% 18%;
-    --ring: 217 91% 60%;
+    --border: 280 100% 60%;
+    --input: 260 50% 15%;
+    --ring: 320 100% 60%;
 
-    --radius: 0.5rem;
+    --radius: 0.25rem;
 
-    --sidebar-background: 220 15% 8%;
-    --sidebar-foreground: 215 15% 70%;
-    --sidebar-primary: 217 91% 60%;
-    --sidebar-primary-foreground: 210 20% 98%;
-    --sidebar-accent: 220 15% 14%;
-    --sidebar-accent-foreground: 210 20% 95%;
-    --sidebar-border: 220 15% 16%;
-    --sidebar-ring: 217 91% 60%;
+    --sidebar-background: 260 50% 10%;
+    --sidebar-foreground: 180 100% 90%;
+    --sidebar-primary: 320 100% 60%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 260 40% 15%;
+    --sidebar-accent-foreground: 180 100% 90%;
+    --sidebar-border: 280 100% 50%;
+    --sidebar-ring: 320 100% 60%;
     
-    --table-header: 220 15% 11%;
-    --table-row-hover: 220 15% 14%;
-    --table-selected: 217 91% 60% / 0.1;
+    --table-header: 260 50% 10%;
+    --table-row-hover: 280 80% 20%;
+    --table-selected: 320 100% 60% / 0.2;
+    
+    /* Neon glow colors */
+    --neon-pink: 320 100% 60%;
+    --neon-cyan: 180 100% 60%;
+    --neon-purple: 280 100% 65%;
   }
 }
 
@@ -65,6 +71,48 @@ All colors MUST be HSL.
   }
 
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground font-orbitron;
+    background: 
+      radial-gradient(ellipse at 20% 50%, hsl(320 100% 30% / 0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 20%, hsl(280 100% 35% / 0.3) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 80%, hsl(180 100% 30% / 0.2) 0%, transparent 50%),
+      hsl(var(--background));
+    background-attachment: fixed;
+  }
+  
+  /* Neon glow effect utilities */
+  .neon-glow-pink {
+    box-shadow: 
+      0 0 10px hsl(var(--neon-pink) / 0.5),
+      0 0 20px hsl(var(--neon-pink) / 0.3),
+      0 0 40px hsl(var(--neon-pink) / 0.2);
+  }
+  
+  .neon-glow-cyan {
+    box-shadow: 
+      0 0 10px hsl(var(--neon-cyan) / 0.5),
+      0 0 20px hsl(var(--neon-cyan) / 0.3),
+      0 0 40px hsl(var(--neon-cyan) / 0.2);
+  }
+  
+  .neon-glow-purple {
+    box-shadow: 
+      0 0 10px hsl(var(--neon-purple) / 0.5),
+      0 0 20px hsl(var(--neon-purple) / 0.3),
+      0 0 40px hsl(var(--neon-purple) / 0.2);
+  }
+  
+  .neon-text-pink {
+    text-shadow: 
+      0 0 10px hsl(var(--neon-pink)),
+      0 0 20px hsl(var(--neon-pink)),
+      0 0 30px hsl(var(--neon-pink));
+  }
+  
+  .neon-text-cyan {
+    text-shadow: 
+      0 0 10px hsl(var(--neon-cyan)),
+      0 0 20px hsl(var(--neon-cyan)),
+      0 0 30px hsl(var(--neon-cyan));
   }
 }
