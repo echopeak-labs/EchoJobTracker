@@ -1,9 +1,9 @@
-import { useState, useEffect, useRef } from 'react';
-import { Job } from '@/hooks/useLocalStorage';
-import { Input } from '@/components/ui/input';
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { ExternalLink, Star } from 'lucide-react';
-import { Badge } from '@/components/ui/badge';
+import { useState, useEffect, useRef } from "react";
+import { Job } from "@/hooks/useLocalStorage";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { ExternalLink, Star } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface EditableCellProps {
   job: Job;
@@ -14,13 +14,13 @@ interface EditableCellProps {
 
 const progressOptions = ["Prospecting", "Applied", "Interviewing", "Offer", "Rejected", "Accepted"] as const;
 
-const progressColors: Record<typeof progressOptions[number], string> = {
-  Prospecting: 'bg-muted text-muted-foreground border border-border hover:bg-primary/5 transition-colors',
-  Applied: 'bg-primary/15 text-primary border border-primary/30 hover:bg-primary/20 transition-colors',
-  Interviewing: 'bg-warning/15 text-warning-foreground border border-warning/30 hover:bg-primary/5 transition-colors',
-  Offer: 'bg-success/15 text-success border border-success/30 hover:bg-primary/5 transition-colors',
-  Rejected: 'bg-destructive/15 text-destructive border border-destructive/30 hover:bg-primary/5 transition-colors',
-  Accepted: 'bg-success/20 text-success border border-success/40 hover:bg-primary/5 transition-colors'
+const progressColors: Record<(typeof progressOptions)[number], string> = {
+  Prospecting: "bg-muted text-muted-foreground border border-border hover:bg-primary/5 transition-colors",
+  Applied: "bg-primary/15 text-primary border border-primary/30 hover:bg-primary/20 transition-colors",
+  Interviewing: "bg-warning/15 text-warning-foreground border border-warning/30 hover:bg-primary/5 transition-colors",
+  Offer: "bg-success/15 text-success border border-success/30 hover:bg-primary/5 transition-colors",
+  Rejected: "bg-destructive/15 text-destructive border border-destructive/30 hover:bg-primary/5 transition-colors",
+  Accepted: "bg-success/20 text-success border border-success/40 hover:bg-primary/5 transition-colors",
 };
 
 export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps) {
@@ -46,9 +46,9 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter') {
+    if (e.key === "Enter") {
       handleBlur();
-    } else if (e.key === 'Escape') {
+    } else if (e.key === "Escape") {
       setValue(job[field as keyof Job]);
       setIsEditing(false);
     }
@@ -57,7 +57,7 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
   const renderContent = () => {
     const cellValue = job[field as keyof Job];
 
-    if (field === 'createdAt') {
+    if (field === "createdAt") {
       return (
         <td className="px-4 py-3 text-sm text-muted-foreground">
           {new Date(cellValue as string).toLocaleDateString()}
@@ -65,13 +65,13 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
       );
     }
 
-    if (field === 'link') {
+    if (field === "link") {
       return (
         <td className="px-4 py-3" onDoubleClick={() => setIsEditing(true)}>
           {isEditing ? (
             <Input
               ref={inputRef}
-              value={value || ''}
+              value={value || ""}
               onChange={(e) => setValue(e.target.value)}
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
@@ -93,7 +93,7 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
       );
     }
 
-    if (field === 'desirability') {
+    if (field === "desirability") {
       return (
         <td className="px-4 py-3" onDoubleClick={() => setIsEditing(true)}>
           {isEditing ? (
@@ -102,7 +102,7 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
               type="number"
               min="1"
               max="5"
-              value={value || ''}
+              value={value || ""}
               onChange={(e) => setValue(Math.min(5, Math.max(1, Number(e.target.value))))}
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
@@ -110,10 +110,10 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
             />
           ) : (
             <div className="flex items-center gap-1">
-              {[1, 2, 3, 4, 5].map(star => (
+              {[1, 2, 3, 4, 5].map((star) => (
                 <Star
                   key={star}
-                  className={`h-4 w-4 ${star <= (cellValue as number) ? 'fill-warning text-warning' : 'text-muted'}`}
+                  className={`h-4 w-4 ${star <= (cellValue as number) ? "fill-warning text-warning" : "text-muted"}`}
                 />
               ))}
             </div>
@@ -122,11 +122,9 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
       );
     }
 
-    if (field === 'salaryMin' || field === 'salaryMax') {
-      const isInvalid = field === 'salaryMax' && 
-        job.salaryMin !== null && 
-        job.salaryMax !== null && 
-        job.salaryMax < job.salaryMin;
+    if (field === "salaryMin" || field === "salaryMax") {
+      const isInvalid =
+        field === "salaryMax" && job.salaryMin !== null && job.salaryMax !== null && job.salaryMax < job.salaryMin;
 
       return (
         <td className="px-4 py-3" onDoubleClick={() => setIsEditing(true)}>
@@ -134,14 +132,14 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
             <Input
               ref={inputRef}
               type="number"
-              value={value || ''}
+              value={value || ""}
               onChange={(e) => setValue(e.target.value ? Number(e.target.value) : null)}
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
               className="h-8 w-32 bg-input border-border text-foreground"
             />
           ) : cellValue !== null ? (
-            <span className={`text-sm ${isInvalid ? 'text-destructive' : 'text-foreground'}`}>
+            <span className={`text-sm ${isInvalid ? "text-destructive" : "text-foreground"}`}>
               ${Number(cellValue).toLocaleString()}
             </span>
           ) : (
@@ -151,7 +149,7 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
       );
     }
 
-    if (field === 'role') {
+    if (field === "role") {
       return (
         <td className="px-4 py-3">
           <Select
@@ -163,7 +161,7 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
               <SelectValue placeholder={roles.length === 0 ? "Add roles first" : "Select role"} />
             </SelectTrigger>
             <SelectContent className="bg-popover border-border">
-              {roles.map(role => (
+              {roles.map((role) => (
                 <SelectItem key={role} value={role} className="text-foreground">
                   {role}
                 </SelectItem>
@@ -174,22 +172,17 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
       );
     }
 
-    if (field === 'progress') {
+    if (field === "progress") {
       return (
         <td className="px-4 py-3">
-          <Select
-            value={cellValue as string}
-            onValueChange={(val) => onUpdate(field, val)}
-          >
+          <Select value={cellValue as string} onValueChange={(val) => onUpdate(field, val)}>
             <SelectTrigger className="h-8 bg-input border-border text-foreground">
               <SelectValue />
             </SelectTrigger>
             <SelectContent className="bg-popover border-border">
-              {progressOptions.map(status => (
+              {progressOptions.map((status) => (
                 <SelectItem key={status} value={status} className="text-foreground">
-                  <Badge className={progressColors[status]}>
-                    {status}
-                  </Badge>
+                  <Badge className={progressColors[status]}>{status}</Badge>
                 </SelectItem>
               ))}
             </SelectContent>
@@ -198,13 +191,13 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
       );
     }
 
-    if (field === 'keywords') {
+    if (field === "keywords") {
       return (
         <td className="px-4 py-3" onDoubleClick={() => setIsEditing(true)}>
           {isEditing ? (
             <Input
               ref={inputRef}
-              value={Array.isArray(value) ? value.join(', ') : value}
+              value={Array.isArray(value) ? value.join(", ") : value}
               onChange={(e) => setValue(e.target.value.split(/[,\s]+/).filter(Boolean))}
               onBlur={handleBlur}
               onKeyDown={handleKeyDown}
@@ -233,14 +226,14 @@ export function EditableCell({ job, field, roles, onUpdate }: EditableCellProps)
         {isEditing ? (
           <Input
             ref={inputRef}
-            value={value || ''}
+            value={value || ""}
             onChange={(e) => setValue(e.target.value)}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             className="h-8 bg-input border-border text-foreground"
           />
         ) : (
-          <span className="text-sm text-foreground">{cellValue || '-'}</span>
+          <span className="text-sm text-foreground">{cellValue || "-"}</span>
         )}
       </td>
     );
