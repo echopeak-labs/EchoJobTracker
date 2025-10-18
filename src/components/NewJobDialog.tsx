@@ -88,7 +88,7 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }:
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] bg-card border-border text-foreground">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] flex flex-col bg-card border-border text-foreground">
         <DialogHeader>
           <DialogTitle className="text-foreground">Add New Job Application</DialogTitle>
           <DialogDescription className="text-muted-foreground">
@@ -96,7 +96,8 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }:
           </DialogDescription>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit} className="space-y-4 mt-4">
+        <form onSubmit={handleSubmit} className="space-y-4 overflow-y-auto flex-1 pr-2">
+          <div className="space-y-4">{/* ... rest of form fields ... */}
           <div className="space-y-2">
             <Label htmlFor="companyName" className="text-foreground">
               Company Name <span className="text-destructive">*</span>
@@ -239,7 +240,9 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }:
             </Select>
           </div>
 
-          <div className="flex justify-end gap-3 pt-4">
+          </div>
+
+          <div className="flex justify-end gap-3 pt-4 sticky bottom-0 bg-card pb-2">
             <Button
               type="button"
               variant="outline"
