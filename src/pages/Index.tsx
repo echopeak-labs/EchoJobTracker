@@ -17,6 +17,7 @@ const Index = () => {
     deleteJob,
     deleteJobs,
     updateTableLayout,
+    updateMinDesiredSalary,
     exportData,
     importData
   } = useJobTrackerStore();
@@ -96,6 +97,7 @@ const Index = () => {
         open={isNewJobDialogOpen}
         onOpenChange={setIsNewJobDialogOpen}
         roles={store.roles}
+        minDesiredSalary={store.minDesiredSalary}
         onSubmit={handleCreateJob}
         onAddRole={addRole}
       />
@@ -106,11 +108,13 @@ const Index = () => {
           jobs={store.jobs}
           selectedRoles={selectedRoles}
           searchQuery={searchQuery}
+          minDesiredSalary={store.minDesiredSalary}
           onAddRole={addRole}
           onUpdateRole={updateRole}
           onDeleteRole={deleteRole}
           onToggleRole={handleToggleRole}
           onSearchChange={setSearchQuery}
+          onMinDesiredSalaryChange={updateMinDesiredSalary}
         />
 
         <JobTable

@@ -12,18 +12,19 @@ interface NewJobDialogProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   roles: string[];
+  minDesiredSalary: number;
   onSubmit: (job: Omit<Job, 'id' | 'createdAt'>) => void;
   onAddRole: (role: string) => void;
 }
 
 const progressOptions = ["Prospecting", "Applied", "Interviewing", "Offer", "Rejected", "Accepted"] as const;
 
-export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }: NewJobDialogProps) {
+export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary, onSubmit, onAddRole }: NewJobDialogProps) {
   const [formData, setFormData] = useState({
     companyName: '',
     link: '',
     desirability: 3,
-    salaryRange: [0, 500000],
+    salaryRange: [minDesiredSalary, 500000],
     role: roles[0] || '',
     keywords: '',
     progress: 'Prospecting' as const
@@ -53,7 +54,7 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }:
       companyName: '',
       link: '',
       desirability: 3,
-      salaryRange: [0, 500000],
+      salaryRange: [minDesiredSalary, 500000],
       role: roles[0] || '',
       keywords: '',
       progress: 'Prospecting'
@@ -69,7 +70,7 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }:
       companyName: '',
       link: '',
       desirability: 3,
-      salaryRange: [0, 500000],
+      salaryRange: [minDesiredSalary, 500000],
       role: roles[0] || '',
       keywords: '',
       progress: 'Prospecting'

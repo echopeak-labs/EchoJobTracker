@@ -10,11 +10,13 @@ interface SidebarProps {
   jobs: Array<{ role: string }>;
   selectedRoles: string[];
   searchQuery: string;
+  minDesiredSalary: number;
   onAddRole: (role: string) => void;
   onUpdateRole: (oldRole: string, newRole: string) => void;
   onDeleteRole: (role: string) => void;
   onToggleRole: (role: string) => void;
   onSearchChange: (query: string) => void;
+  onMinDesiredSalaryChange: (salary: number) => void;
 }
 
 export function Sidebar({
@@ -22,11 +24,13 @@ export function Sidebar({
   jobs,
   selectedRoles,
   searchQuery,
+  minDesiredSalary,
   onAddRole,
   onUpdateRole,
   onDeleteRole,
   onToggleRole,
-  onSearchChange
+  onSearchChange,
+  onMinDesiredSalaryChange
 }: SidebarProps) {
   const [newRole, setNewRole] = useState('');
   const [editingRole, setEditingRole] = useState<string | null>(null);
@@ -68,6 +72,25 @@ export function Sidebar({
       </div>
 
       <div className="flex-1 overflow-y-auto p-6">
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold text-sidebar-foreground mb-3">Minimum Desired Salary</h2>
+          <div className="relative">
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-sidebar-foreground">$</span>
+            <Input
+              type="number"
+              min={0}
+              step={10000}
+              value={minDesiredSalary}
+              onChange={(e) => onMinDesiredSalaryChange(Number(e.target.value))}
+              placeholder="0"
+              className="bg-sidebar-accent border-sidebar-border text-sidebar-foreground pl-7"
+            />
+          </div>
+          <p className="text-xs text-muted-foreground mt-1">
+            Sets the default minimum for new applications
+          </p>
+        </div>
+
         <div className="mb-6">
           <h2 className="text-lg font-semibold text-sidebar-foreground mb-3">Roles</h2>
           

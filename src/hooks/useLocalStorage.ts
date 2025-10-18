@@ -17,6 +17,7 @@ export interface JobTrackerStore {
   roles: string[];
   jobs: Job[];
   tableLayout: string[];
+  minDesiredSalary: number;
 }
 
 const STORAGE_KEY = 'job-tracker-store';
@@ -36,7 +37,8 @@ const defaultColumns = [
 const defaultStore: JobTrackerStore = {
   roles: [],
   jobs: [],
-  tableLayout: defaultColumns
+  tableLayout: defaultColumns,
+  minDesiredSalary: 0
 };
 
 export function useJobTrackerStore() {
@@ -106,6 +108,10 @@ export function useJobTrackerStore() {
     updateStore({ tableLayout: layout });
   };
 
+  const updateMinDesiredSalary = (salary: number) => {
+    updateStore({ minDesiredSalary: salary });
+  };
+
   const exportData = () => {
     return JSON.stringify(store, null, 2);
   };
@@ -133,6 +139,7 @@ export function useJobTrackerStore() {
     deleteJob,
     deleteJobs,
     updateTableLayout,
+    updateMinDesiredSalary,
     exportData,
     importData
   };
