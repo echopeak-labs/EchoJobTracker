@@ -162,7 +162,7 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }:
                     type="number"
                     min={0}
                     max={formData.salaryRange[1]}
-                    step={10}
+                    step={10000}
                     value={formData.salaryRange[0]}
                     onChange={(e) => {
                       const val = Math.max(0, Math.min(Number(e.target.value), formData.salaryRange[1]));
@@ -180,7 +180,7 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }:
                     type="number"
                     min={formData.salaryRange[0]}
                     max={500000}
-                    step={10}
+                    step={10000}
                     value={formData.salaryRange[1]}
                     onChange={(e) => {
                       const val = Math.min(500000, Math.max(Number(e.target.value), formData.salaryRange[0]));
@@ -194,7 +194,7 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }:
             <Slider
               min={0}
               max={500000}
-              step={10}
+              step={10000}
               value={formData.salaryRange}
               onValueChange={(value) => setFormData({ ...formData, salaryRange: value as [number, number] })}
               className="w-full"
