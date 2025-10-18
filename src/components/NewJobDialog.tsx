@@ -153,13 +153,43 @@ export function NewJobDialog({ open, onOpenChange, roles, onSubmit, onAddRole }:
 
           <div className="space-y-3">
             <Label className="text-foreground">Salary Range</Label>
-            <div className="flex justify-between mb-2">
-              <span className="text-sm font-medium text-foreground">
-                ${formData.salaryRange[0].toLocaleString()}
-              </span>
-              <span className="text-sm font-medium text-foreground">
-                ${formData.salaryRange[1].toLocaleString()}
-              </span>
+            <div className="flex gap-4 mb-2">
+              <div className="flex-1 space-y-1">
+                <Label className="text-xs text-muted-foreground">Min</Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-foreground">$</span>
+                  <Input
+                    type="number"
+                    min={0}
+                    max={formData.salaryRange[1]}
+                    step={10}
+                    value={formData.salaryRange[0]}
+                    onChange={(e) => {
+                      const val = Math.max(0, Math.min(Number(e.target.value), formData.salaryRange[1]));
+                      setFormData({ ...formData, salaryRange: [val, formData.salaryRange[1]] });
+                    }}
+                    className="bg-input border-border text-foreground pl-7"
+                  />
+                </div>
+              </div>
+              <div className="flex-1 space-y-1">
+                <Label className="text-xs text-muted-foreground">Max</Label>
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-foreground">$</span>
+                  <Input
+                    type="number"
+                    min={formData.salaryRange[0]}
+                    max={500000}
+                    step={10}
+                    value={formData.salaryRange[1]}
+                    onChange={(e) => {
+                      const val = Math.min(500000, Math.max(Number(e.target.value), formData.salaryRange[0]));
+                      setFormData({ ...formData, salaryRange: [formData.salaryRange[0], val] });
+                    }}
+                    className="bg-input border-border text-foreground pl-7"
+                  />
+                </div>
+              </div>
             </div>
             <Slider
               min={0}
