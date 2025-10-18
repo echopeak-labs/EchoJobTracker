@@ -3,6 +3,7 @@ import { useJobTrackerStore } from '@/hooks/useLocalStorage';
 import { Header } from '@/components/Header';
 import { Sidebar } from '@/components/Sidebar';
 import { JobTable } from '@/components/JobTable';
+import { NewJobDialog } from '@/components/NewJobDialog';
 import { toast } from 'sonner';
 
 const Index = () => {
@@ -22,6 +23,7 @@ const Index = () => {
 
   const [selectedRoles, setSelectedRoles] = useState<string[]>([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [isNewJobDialogOpen, setIsNewJobDialogOpen] = useState(false);
 
   // Keyboard shortcuts
   useEffect(() => {
@@ -37,23 +39,17 @@ const Index = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, []);
 
-  const handleNewRow = () => {
+  const handleOpenNewJobDialog = () => {
     if (store.roles.length === 0) {
       toast.error('Please add at least one role before creating a job entry');
       return;
     }
+    setIsNewJobDialogOpen(true);
+  };
 
-    addJob({
-      companyName: '',
-      link: '',
-      desirability: 3,
-      salaryMin: null,
-      salaryMax: null,
-      role: store.roles[0],
-      keywords: [],
-      progress: 'Prospecting'
-    });
-    toast.success('New row added');
+  const handleCreateJob = (jobData: Parameters<typeof addJob>[0]) => {
+    addJob(jobData);
+    toast.success('Job application added');
   };
 
   const handleClearFilters = () => {
@@ -90,10 +86,17 @@ const Index = () => {
   return (
     <div className="flex flex-col h-screen bg-background">
       <Header
-        onNewRow={handleNewRow}
+        onOpenNewJobDialog={handleOpenNewJobDialog}
         onClearFilters={handleClearFilters}
         onExport={exportData}
         onImport={importData}
+      />
+
+      <NewJobDialog
+        open={isNewJobDialogOpen}
+        onOpenChange={setIsNewJobDialogOpen}
+        roles={store.roles}
+        onSubmit={handleCreateJob}
       />
       
       <div className="flex flex-1 overflow-hidden">

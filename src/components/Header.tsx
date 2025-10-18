@@ -4,13 +4,13 @@ import { useRef } from 'react';
 import { toast } from 'sonner';
 
 interface HeaderProps {
-  onNewRow: () => void;
+  onOpenNewJobDialog: () => void;
   onClearFilters: () => void;
   onExport: () => string;
   onImport: (data: string) => boolean;
 }
 
-export function Header({ onNewRow, onClearFilters, onExport, onImport }: HeaderProps) {
+export function Header({ onOpenNewJobDialog, onClearFilters, onExport, onImport }: HeaderProps) {
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleExport = () => {
@@ -95,7 +95,7 @@ export function Header({ onNewRow, onClearFilters, onExport, onImport }: HeaderP
         />
 
         <Button
-          onClick={onNewRow}
+          onClick={onOpenNewJobDialog}
           className="bg-primary hover:bg-primary/90 text-primary-foreground"
         >
           <Plus className="h-4 w-4 mr-2" />
