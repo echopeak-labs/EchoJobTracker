@@ -14,7 +14,7 @@ export default {
     },
     extend: {
       fontFamily: {
-        orbitron: ['Orbitron', 'sans-serif'],
+        inter: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
       },
       colors: {
         border: "hsl(var(--border))",

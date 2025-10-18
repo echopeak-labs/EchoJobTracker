@@ -29,12 +29,12 @@ export function JobRow({
   };
 
   return (
-    <tr className={`hover:bg-table-hover transition-all border-l-2 border-transparent hover:border-l-accent ${isSelected ? 'bg-table-selected border-l-primary' : ''}`}>
+    <tr className={`hover:bg-table-hover transition-colors ${isSelected ? 'bg-table-selected' : ''}`}>
       <td className="px-4 py-3">
         <Checkbox
           checked={isSelected}
           onCheckedChange={onToggleSelect}
-          className="border-2 border-accent data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+          className="border border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
         />
       </td>
 

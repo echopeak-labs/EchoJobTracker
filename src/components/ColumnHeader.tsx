@@ -32,7 +32,7 @@ export function ColumnHeader({ id, label, sortConfig, onSort }: ColumnHeaderProp
     <th
       ref={setNodeRef}
       style={style}
-      className="px-4 py-3 text-left text-xs font-bold text-accent uppercase tracking-wider group cursor-move"
+      className="px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider group cursor-move"
     >
       <div className="flex items-center gap-2">
         <button
@@ -44,7 +44,7 @@ export function ColumnHeader({ id, label, sortConfig, onSort }: ColumnHeaderProp
         </button>
         <button
           onClick={onSort}
-          className="flex items-center gap-1 hover:text-primary transition-colors font-bold"
+          className="flex items-center gap-1 hover:text-foreground transition-colors"
         >
           {label}
           <ArrowUpDown className={`h-3 w-3 ${isSorted ? 'text-primary' : ''}`} />

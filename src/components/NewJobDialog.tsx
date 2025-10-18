@@ -101,12 +101,12 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary = 0, 
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="sm:max-w-[600px] max-h-[90vh] flex flex-col bg-card/90 backdrop-blur-md border-2 border-primary text-foreground neon-glow-pink">
+      <DialogContent className="sm:max-w-[600px] max-h-[90vh] flex flex-col glass border border-border text-foreground shadow-medium">
         <DialogHeader>
-          <DialogTitle className="text-foreground font-black text-xl tracking-wider uppercase neon-text-pink">
+          <DialogTitle className="text-foreground font-semibold text-lg">
             Add New Job Application
           </DialogTitle>
-          <DialogDescription className="text-accent font-medium">
+          <DialogDescription className="text-muted-foreground">
             Fill in the details for your job application. All fields except Company Name are optional.
           </DialogDescription>
         </DialogHeader>
@@ -114,7 +114,7 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary = 0, 
         <form onSubmit={handleSubmit} className="space-y-4 overflow-y-auto flex-1 pr-2">
           <div className="space-y-4">{/* ... rest of form fields ... */}
           <div className="space-y-2">
-            <Label htmlFor="companyName" className="text-accent font-bold tracking-wide uppercase text-xs">
+            <Label htmlFor="companyName" className="text-foreground font-medium text-sm">
               Company Name <span className="text-destructive">*</span>
             </Label>
             <Input
@@ -122,7 +122,7 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary = 0, 
               value={formData.companyName}
               onChange={(e) => setFormData({ ...formData, companyName: e.target.value })}
               placeholder="Enter company name"
-              className="bg-input border-2 border-secondary text-foreground font-bold focus:border-primary transition-all"
+              className="bg-input border border-border text-foreground focus:border-primary focus:ring-1 focus:ring-primary/20 transition-all shadow-soft"
               required
             />
           </div>
@@ -168,12 +168,12 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary = 0, 
           </div>
 
           <div className="space-y-3">
-            <Label className="text-accent font-bold tracking-wide uppercase text-xs">Salary Range</Label>
+            <Label className="text-foreground font-medium text-sm">Salary Range</Label>
             <div className="flex justify-between mb-2">
-              <span className="text-sm font-bold text-primary neon-text-pink">
+              <span className="text-sm font-medium text-foreground">
                 ${(formData.salaryRange?.[0] ?? 0).toLocaleString()}
               </span>
-              <span className="text-sm font-bold text-secondary neon-text-pink">
+              <span className="text-sm font-medium text-foreground">
                 ${(formData.salaryRange?.[1] ?? 500000).toLocaleString()}
               </span>
             </div>
@@ -257,18 +257,18 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary = 0, 
 
           </div>
 
-          <div className="flex justify-end gap-3 pt-4 sticky bottom-0 bg-card/90 backdrop-blur-sm pb-2 border-t-2 border-border/50 mt-4">
+          <div className="flex justify-end gap-3 pt-4 sticky bottom-0 glass-dark pb-2 border-t border-border/50 mt-4">
             <Button
               type="button"
               variant="outline"
               onClick={handleCancel}
-              className="border-2 border-accent text-foreground hover:bg-accent/20 font-bold"
+              className="border border-border text-foreground hover:bg-muted/50"
             >
               Cancel
             </Button>
             <Button
               type="submit"
-              className="bg-primary hover:bg-primary/90 text-primary-foreground font-bold neon-glow-pink"
+              className="bg-primary hover:bg-primary/90 text-primary-foreground shadow-soft"
             >
               Add Job
             </Button>

@@ -126,15 +126,15 @@ export function JobTable({
   return (
     <div className="flex-1 flex flex-col overflow-hidden">
       {selectedJobs.length > 0 && (
-        <div className="bg-card/90 backdrop-blur-sm border-b-2 border-border px-6 py-3 flex items-center gap-3">
-          <span className="text-sm text-accent font-bold tracking-wide">
+        <div className="glass border-b border-border px-6 py-3 flex items-center gap-3">
+          <span className="text-sm text-muted-foreground">
             {selectedJobs.length} selected
           </span>
           <Button
             variant="destructive"
             size="sm"
             onClick={handleBulkDelete}
-            className="ml-auto font-bold neon-glow-pink"
+            className="ml-auto shadow-soft"
           >
             <Trash2 className="h-4 w-4 mr-2" />
             Delete Selected
@@ -145,13 +145,13 @@ export function JobTable({
       <div className="flex-1 overflow-auto">
         <div className="inline-block min-w-full align-middle">
           <table className="min-w-full divide-y divide-border">
-            <thead className="bg-table-header sticky top-0 z-10 border-b-2 border-border">
+            <thead className="glass-dark sticky top-0 z-10 border-b border-border">
               <tr>
                 <th className="w-12 px-4 py-3 text-left">
                   <Checkbox
                     checked={jobs.length > 0 && selectedJobs.length === jobs.length}
                     onCheckedChange={toggleSelectAll}
-                    className="border-2 border-accent data-[state=checked]:bg-primary data-[state=checked]:border-primary"
+                    className="border border-border data-[state=checked]:bg-primary data-[state=checked]:border-primary"
                   />
                 </th>
                 
@@ -176,17 +176,17 @@ export function JobTable({
                   </SortableContext>
                 </DndContext>
 
-                <th className="w-20 px-4 py-3 text-left text-xs font-bold text-accent uppercase tracking-wider">
+                <th className="w-20 px-4 py-3 text-left text-xs font-medium text-muted-foreground uppercase tracking-wider">
                   Actions
                 </th>
               </tr>
             </thead>
-            <tbody className="bg-card/30 backdrop-blur-sm divide-y-2 divide-border">
+            <tbody className="bg-card/50 divide-y divide-border">
               {sortedJobs.length === 0 ? (
                 <tr>
                   <td colSpan={tableLayout.length + 2} className="px-6 py-12 text-center">
-                    <p className="text-accent font-bold text-lg tracking-wide">
-                      No jobs yet. Click "NEW ROW" to add your first application.
+                    <p className="text-muted-foreground">
+                      No jobs yet. Click "New Row" to add your first application.
                     </p>
                   </td>
                 </tr>
