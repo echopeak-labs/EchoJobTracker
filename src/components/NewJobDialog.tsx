@@ -19,12 +19,12 @@ interface NewJobDialogProps {
 
 const progressOptions = ["Prospecting", "Applied", "Interviewing", "Offer", "Rejected", "Accepted"] as const;
 
-export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary, onSubmit, onAddRole }: NewJobDialogProps) {
+export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary = 0, onSubmit, onAddRole }: NewJobDialogProps) {
   const [formData, setFormData] = useState({
     companyName: '',
     link: '',
     desirability: 3,
-    salaryRange: [minDesiredSalary, 500000],
+    salaryRange: [minDesiredSalary || 0, 500000],
     role: roles[0] || '',
     keywords: '',
     progress: 'Prospecting' as const
@@ -54,7 +54,7 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary, onSu
       companyName: '',
       link: '',
       desirability: 3,
-      salaryRange: [minDesiredSalary, 500000],
+      salaryRange: [minDesiredSalary || 0, 500000],
       role: roles[0] || '',
       keywords: '',
       progress: 'Prospecting'
@@ -70,7 +70,7 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary, onSu
       companyName: '',
       link: '',
       desirability: 3,
-      salaryRange: [minDesiredSalary, 500000],
+      salaryRange: [minDesiredSalary || 0, 500000],
       role: roles[0] || '',
       keywords: '',
       progress: 'Prospecting'
@@ -157,17 +157,17 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary, onSu
             <Label className="text-foreground">Salary Range</Label>
             <div className="flex justify-between mb-2">
               <span className="text-sm font-medium text-foreground">
-                ${formData.salaryRange[0].toLocaleString()}
+                ${(formData.salaryRange?.[0] ?? 0).toLocaleString()}
               </span>
               <span className="text-sm font-medium text-foreground">
-                ${formData.salaryRange[1].toLocaleString()}
+                ${(formData.salaryRange?.[1] ?? 500000).toLocaleString()}
               </span>
             </div>
             <Slider
               min={0}
               max={500000}
               step={10000}
-              value={formData.salaryRange}
+              value={formData.salaryRange || [0, 500000]}
               onValueChange={(value) => setFormData({ ...formData, salaryRange: value as [number, number] })}
               className="w-full"
             />
