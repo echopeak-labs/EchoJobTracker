@@ -34,9 +34,11 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary = 0, 
   // Update salary range minimum when dialog opens or minDesiredSalary changes
   useEffect(() => {
     if (open) {
+      const minSalary = minDesiredSalary || 0;
+      const maxSalary = Math.min(minSalary * 2, 500000); // Double the min, capped at 500k
       setFormData(prev => ({
         ...prev,
-        salaryRange: [minDesiredSalary || 0, prev.salaryRange[1]]
+        salaryRange: [minSalary, maxSalary]
       }));
     }
   }, [open, minDesiredSalary]);
