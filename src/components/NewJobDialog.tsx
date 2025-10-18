@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -30,6 +30,16 @@ export function NewJobDialog({ open, onOpenChange, roles, minDesiredSalary = 0, 
     progress: 'Prospecting' as const
   });
   const [newRole, setNewRole] = useState('');
+
+  // Update salary range minimum when dialog opens or minDesiredSalary changes
+  useEffect(() => {
+    if (open) {
+      setFormData(prev => ({
+        ...prev,
+        salaryRange: [minDesiredSalary || 0, prev.salaryRange[1]]
+      }));
+    }
+  }, [open, minDesiredSalary]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
