@@ -86,12 +86,7 @@ const Index = () => {
 
   return (
     <div className="flex flex-col h-screen bg-background">
-      <Header
-        onOpenNewJobDialog={handleOpenNewJobDialog}
-        onClearFilters={handleClearFilters}
-        onExport={exportData}
-        onImport={importData}
-      />
+      <Header />
 
       <NewJobDialog
         open={isNewJobDialogOpen}
@@ -115,6 +110,7 @@ const Index = () => {
           onToggleRole={handleToggleRole}
           onSearchChange={setSearchQuery}
           onMinDesiredSalaryChange={updateMinDesiredSalary}
+          onOpenNewJobDialog={handleOpenNewJobDialog}
         />
 
         <JobTable

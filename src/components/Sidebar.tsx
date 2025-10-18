@@ -17,6 +17,7 @@ interface SidebarProps {
   onToggleRole: (role: string) => void;
   onSearchChange: (query: string) => void;
   onMinDesiredSalaryChange: (salary: number) => void;
+  onOpenNewJobDialog: () => void;
 }
 
 export function Sidebar({
@@ -30,7 +31,8 @@ export function Sidebar({
   onDeleteRole,
   onToggleRole,
   onSearchChange,
-  onMinDesiredSalaryChange
+  onMinDesiredSalaryChange,
+  onOpenNewJobDialog
 }: SidebarProps) {
   const [newRole, setNewRole] = useState('');
   const [editingRole, setEditingRole] = useState<string | null>(null);
@@ -61,14 +63,24 @@ export function Sidebar({
 
   return (
     <div className="w-80 bg-sidebar border-r border-sidebar-border flex flex-col h-full">
-      <div className="p-6 border-b border-sidebar-border">
-        <h2 className="text-lg font-semibold text-sidebar-foreground mb-4">Search</h2>
-        <Input
-          placeholder="Filter by keyword, company, role..."
-          value={searchQuery}
-          onChange={(e) => onSearchChange(e.target.value)}
-          className="bg-sidebar-accent border-sidebar-border text-sidebar-foreground"
-        />
+      <div className="p-6 border-b border-sidebar-border space-y-4">
+        <Button
+          onClick={onOpenNewJobDialog}
+          className="w-full bg-primary hover:bg-primary/90 text-primary-foreground"
+        >
+          <Plus className="h-4 w-4 mr-2" />
+          New Row
+        </Button>
+
+        <div>
+          <h2 className="text-lg font-semibold text-sidebar-foreground mb-3">Search</h2>
+          <Input
+            placeholder="Filter by keyword, company, role..."
+            value={searchQuery}
+            onChange={(e) => onSearchChange(e.target.value)}
+            className="bg-sidebar-accent border-sidebar-border text-sidebar-foreground"
+          />
+        </div>
       </div>
 
       <div className="flex-1 overflow-y-auto p-6">
